@@ -62,7 +62,7 @@ scm_version()
 	fi
 
 	# Check for git and a git repo.
-	if head=$(git rev-parse --verify HEAD 2>/dev/null); then
+	head=$(git rev-parse --verify --short=8 HEAD 2>/dev/null); then
 
 		if [ -n "$android_release" ] && [ -n "$kmi_generation" ]; then
 			printf '%s' "-$android_release-$kmi_generation"
@@ -89,8 +89,8 @@ scm_version()
 			fi
 			
             # Avoid asking git for tag as it could be extremely slow.
-			# We print -g{commitish}.
-			printf '%s%s' -g $head			
+			# We print /{commitish}.
+			printf '%s%s' "/" $head				
 		fi
 
 		# Is this git on svn?
